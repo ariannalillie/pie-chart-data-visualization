@@ -10,24 +10,23 @@ export const Chart: FC = () => {
   ]);
 
   const updateData = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const name = e.target.name
-    const value = +e.target.value
+    const name = e.target.name;
+    const value = +e.target.value;
 
-  // Find the correct object to update in the `data` array
-  const updatedData = data.map((item) => {
-    if (item.name === name) {
-      return {
-        ...item,  // spread the existing properties of the object
-        value: value  // update the value property
-      };
-    }
-    return item;  // return the original object if the name does not match
-  });
+    // Find the correct object to update in the `data` array
+    const updatedData = data.map((item) => {
+      if (item.name === name) {
+        return {
+          ...item, // spread the existing properties of the object
+          value: value, // update the value property
+        };
+      }
+      return item; // return the original object if the name does not match
+    });
 
-  // Use the `setData` function to update the state with the new array
-  setData(updatedData);
-    
-  }
+    // Use the `setData` function to update the state with the new array
+    setData(updatedData);
+  };
 
   const COLORS = ["#0088FE", "#00C49F", "#FFBB28", "#FF8042"];
   return (
