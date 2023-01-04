@@ -1,6 +1,7 @@
 import { useContext, useState } from "react";
-import { ExpenseContext } from "./chart";
+import { ExpenseContext } from "../chart";
 import { FC } from "react";
+import "./expense.css";
 
 export interface ExpenseProp {
   id: number;
@@ -26,7 +27,7 @@ export const Expense: FC<ExpenseProp> = ({ id }) => {
   };
 
   return (
-    <div>
+    <div className="input-container">
       <div
         style={{
           height: "30px",
@@ -35,13 +36,24 @@ export const Expense: FC<ExpenseProp> = ({ id }) => {
           backgroundColor: color,
         }}
       ></div>
-      <label>Expense Type:</label>
-      <input onChange={(e) => setName(e.target.value)} value={name}></input>
-      <label>Value:</label>
-      <input onChange={(e) => setValue(+e.target.value)} value={value}></input>
-      <label>Color:</label>
-      <input onChange={(e) => setColor(e.target.value)} value={color}></input>
-      <button onClick={handleUpdate}>Update</button>
+      <div className="item">
+        <label>Expense Type:</label>
+        <input onChange={(e) => setName(e.target.value)} value={name}></input>
+      </div>
+      <div className="item">
+        <label>Value:</label>
+        <input
+          onChange={(e) => setValue(+e.target.value)}
+          value={value}
+        ></input>
+      </div>
+      <div className="item">
+        <label>Color:</label>
+        <input onChange={(e) => setColor(e.target.value)} value={color}></input>
+      </div>
+      <button className="item button" onClick={handleUpdate}>
+        Update
+      </button>
     </div>
   );
 };

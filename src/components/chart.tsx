@@ -1,7 +1,7 @@
 import { FC, useState } from "react";
 import { PieChart, Pie, Cell } from "recharts";
 import { createContext } from "react";
-import { Expense } from "./expense";
+import { Expense } from "./expense/expense";
 
 export const ExpenseContext = createContext<ExpenseContext>(undefined);
 

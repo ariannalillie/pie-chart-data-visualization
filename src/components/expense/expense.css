@@ -1,0 +1,22 @@
+.input-container {
+    display: flex;
+    align-items: center;
+    padding-bottom: 10px;
+}
+
+.item {
+    margin-left: 50px;
+} 
+
+label {
+    font-weight: bold;
+    margin-right: 5px;
+}
+
+button {
+    border-radius: 7px;
+    padding: 5px;
+    background-color: rgb(225, 255, 255);
+    border: 1px solid black;
+    font-weight: bold;
+}
