@@ -9,9 +9,7 @@ export const Chart: FC = () => {
     { name: "subscriptions", value: 0 },
   ]);
 
-  const updateData = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const name = e.target.name;
-    const value = +e.target.value;
+  let randomColor = `hsl(${Math.floor(Math.random() * 360)} 70% 70%)`;
 
     // Find the correct object to update in the `data` array
     const updatedData = data.map((item) => {
