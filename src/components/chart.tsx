@@ -1,13 +1,12 @@
 import { FC, useState } from "react";
 import { PieChart, Pie, Cell } from "recharts";
+import { createContext } from "react";
+import { Expense } from "./expense";
+
+export const ExpenseContext = createContext<ExpenseContext>(undefined);
 
 export const Chart: FC = () => {
-  const [data, setData] = useState([
-    { name: "shopping", value: 0 },
-    { name: "dining", value: 0 },
-    { name: "housing", value: 0 },
-    { name: "subscriptions", value: 0 },
-  ]);
+  const [expenses, setExpenses] = useState<Expenses>({});
 
   let randomColor = `hsl(${Math.floor(Math.random() * 360)} 70% 70%)`;
 
@@ -21,40 +20,60 @@ export const Chart: FC = () => {
           color: randomColor,
         },
       };
-      }
-      return item; // return the original object if the name does not match
     });
-
-    // Use the `setData` function to update the state with the new array
-    setData(updatedData);
   };
 
-  const COLORS = ["#0088FE", "#00C49F", "#FFBB28", "#FF8042"];
+  const RADIAN = Math.PI / 180;
+  const renderCustomizedLabel = ({
+    cx,
+    cy,
+    midAngle,
+    innerRadius,
+    outerRadius,
+    percent,
+    index,
+  }: CustomizedLabel) => {
+    const radius = innerRadius + (outerRadius - innerRadius) * 0.5;
+    const x = cx + radius * Math.cos(-midAngle * RADIAN);
+    const y = cy + radius * Math.sin(-midAngle * RADIAN);
+
+    return (
+      <text
+        x={x}
+        y={y}
+        fill="white"
+        textAnchor={x > cx ? "start" : "end"}
+        dominantBaseline="central"
+      >
+        {`${(percent * 100).toFixed(0)}%`}
+      </text>
+    );
+  };
+
   return (
     <div>
-      <label>Shopping</label>
-      <input name="shopping" onChange={(e) => updateData(e)}></input>
-      <label>Dining</label>
-      <input name="dining" onChange={(e) => updateData(e)}></input>
-      <label>Rent/Morgage</label>
-      <input name="housing" onChange={(e) => updateData(e)}></input>
-      <label>Subscriptions</label>
-      <input name="subscriptions" onChange={(e) => updateData(e)}></input>
-      <PieChart width={400} height={400}>
-        <Pie
-          data={data}
-          cx={200}
-          cy={200}
-          labelLine={false}
-          outerRadius={80}
-          fill="#8884d8"
-          dataKey="value"
-        >
-          {data.map((entry, index) => (
-            <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
-          ))}
-        </Pie>
-      </PieChart>
+      <ExpenseContext.Provider value={{ expenses, setExpenses }}>
+        {Object.values(expenses).map((entry, index) => {
+          return <Expense id={index} key={index} />;
+        })}
+        <button onClick={handleExpense}>+ Add Expense</button>
+        <PieChart width={400} height={400}>
+          <Pie
+            data={Object.values(expenses)}
+            cx={200}
+            cy={200}
+            labelLine={false}
+            outerRadius={80}
+            fill="#8884d8"
+            dataKey="value"
+            label={renderCustomizedLabel}
+          >
+            {Object.values(expenses).map((entry, index) => (
+              <Cell key={`cell-${index}`} fill={entry.color} />
+            ))}
+          </Pie>
+        </PieChart>
+      </ExpenseContext.Provider>
     </div>
   );
 };
