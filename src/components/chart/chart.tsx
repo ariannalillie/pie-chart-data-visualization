@@ -1,7 +1,8 @@
 import { FC, useState } from "react";
 import { PieChart, Pie, Cell } from "recharts";
 import { createContext } from "react";
-import { Expense } from "./expense/expense";
+import { Expense } from "../expense/expense";
+import "./chart.css";
 
 export const ExpenseContext = createContext<ExpenseContext>(undefined);
 
@@ -57,13 +58,14 @@ export const Chart: FC = () => {
           return <Expense id={index} key={index} />;
         })}
         <button onClick={handleExpense}>+ Add Expense</button>
-        <PieChart width={400} height={400}>
+        <div className="chart-container">
+        <PieChart width={500} height={500}>
           <Pie
             data={Object.values(expenses)}
             cx={200}
             cy={200}
             labelLine={false}
-            outerRadius={80}
+            outerRadius={200}
             fill="#8884d8"
             dataKey="value"
             label={renderCustomizedLabel}
@@ -73,6 +75,7 @@ export const Chart: FC = () => {
             ))}
           </Pie>
         </PieChart>
+        </div>
       </ExpenseContext.Provider>
     </div>
   );

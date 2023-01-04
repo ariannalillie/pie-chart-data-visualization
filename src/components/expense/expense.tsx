@@ -1,5 +1,5 @@
 import { useContext, useState } from "react";
-import { ExpenseContext } from "../chart";
+import { ExpenseContext } from "../chart/chart";
 import { FC } from "react";
 import "./expense.css";
 

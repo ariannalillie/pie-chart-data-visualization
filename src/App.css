@@ -1,4 +1,11 @@
+@import url("https://fonts.googleapis.com/css2?family=Sevillana&display=swap");
+
 body {
-    background-color: rgb(225, 255, 255);
-    padding: 5px;
+  background-color: rgb(225, 255, 255);
+  padding: 5px;
+}
+
+h1 {
+  font-family: "Sevillana", cursive;
+  font-size: 50px;
 }
