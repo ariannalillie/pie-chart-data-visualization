@@ -11,13 +11,16 @@ export const Chart: FC = () => {
 
   let randomColor = `hsl(${Math.floor(Math.random() * 360)} 70% 70%)`;
 
-    // Find the correct object to update in the `data` array
-    const updatedData = data.map((item) => {
-      if (item.name === name) {
-        return {
-          ...item, // spread the existing properties of the object
-          value: value, // update the value property
-        };
+  const handleExpense = () => {
+    setExpenses((prev) => {
+      return {
+        ...prev,
+        [Object.values(prev).length]: {
+          name: "",
+          value: 0,
+          color: randomColor,
+        },
+      };
       }
       return item; // return the original object if the name does not match
     });
